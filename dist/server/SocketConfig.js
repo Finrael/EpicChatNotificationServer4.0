@@ -58,7 +58,7 @@ function Config(server) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log('this', socket.request.headers.cookie);
+                    console.log('this socket ', socket.request.headers.cookie);
                     cookie = socket.request.headers.cookie;
                     spreadCookie1 = cookie.split(';');
                     spreadCookie2 = spreadCookie1[0].split('=');

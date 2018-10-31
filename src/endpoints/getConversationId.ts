@@ -11,6 +11,7 @@ import conversation from '../db/conversationSchema';
 import { Types, Schema } from "mongoose";
 import axios from 'axios'
 import user from '../db/userSchema';
+import usercomp from '../db/userCompSchema';
 
 router.post('/getConversationId',  async (req, res) => {
     console.log('hello')
@@ -22,7 +23,7 @@ router.post('/getConversationId',  async (req, res) => {
        console.log('enter here', response.data)
        const UserIdObject = new Types.ObjectId(response.data._id)
                console.log(UserIdObject);
-               const UserData = await user.findOne({_id:  UserIdObject  })
+               const UserData = await usercomp.findOne({_id:  UserIdObject  })
                console.log('THISD IS THE CONVERSATION DATA', UserData)
                console.log('conversation data', UserData!.contacts[0].conversationId, '--------------------------------')
         res.json(UserData)

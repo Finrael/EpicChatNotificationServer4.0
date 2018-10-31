@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 const app= express();
 const port = process.env.PORT || 5002;
 import mongoose, {Schema, Model, model} from 'mongoose';
-import User from '../db/userSchema';
+import User from '../db/userCompSchema';
 import passport from 'passport';
 import passportLocalMongoose from 'passport-local-mongoose';
 import {Session} from 'inspector';
@@ -13,7 +13,7 @@ import endPoints from '../endpoints';
 import http from 'http';
 
 mongoose.connect(
-    'mongodb://localhost:27017/chatDB', (error: any) => {
+    'mongodb://localhost:27017/CommsDB', (error: any) => {
 
         if (error) {
             console.log('error');
@@ -26,11 +26,11 @@ mongoose.connect(
     }
 )
 
-passport.use(User.createStrategy());
-const passportExpressMiddleware = passport.initialize();
+// passport.use(User.createStrategy());
+// const passportExpressMiddleware = passport.initialize();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(passportExpressMiddleware);
+// app.use(passportExpressMiddleware);
 app.use(cookieParser());
 app.use('/api',endPoints)
 const server = http.createServer(app);

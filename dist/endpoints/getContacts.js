@@ -40,16 +40,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // imports
 var express_1 = __importDefault(require("express"));
-var userSchema_1 = __importDefault(require("../db/userSchema"));
 var router = express_1.default.Router();
 var axios_1 = __importDefault(require("axios"));
+var userCompSchema_1 = __importDefault(require("../db/userCompSchema"));
 router.use('/getContacts', function (req, res) {
     console.log('---------------------------->', req.headers.emailtolookfor);
     var stringGuard = '';
     axios_1.default.post('http://localhost:5001/api/authenticate', {}, { headers: { cookie: req.headers.cookie } })
         .then(function async(response) {
         return __awaiter(this, void 0, void 0, function () {
-            var filter, aux;
+            var aux;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -57,12 +57,11 @@ router.use('/getContacts', function (req, res) {
                             stringGuard = req.headers.emailtolookfor;
                         }
                         console.log('response from authenticate omtp getContacts', response.data);
-                        console.log('this is the email we a re looking for ', req.headers.emailToLookFor);
-                        filter = { _id: response.data._id };
-                        return [4 /*yield*/, userSchema_1.default.find({ email: new RegExp(stringGuard) }, { _id: 1, email: 1, name: 1 })];
+                        console.log('this is the email we a re looking for ', stringGuard);
+                        return [4 /*yield*/, userCompSchema_1.default.find({ email: new RegExp(stringGuard) }, { userId: 1, email: 1, name: 1 })];
                     case 1:
                         aux = _a.sent();
-                        console.log(aux);
+                        console.log(aux, 'dsarer');
                         res.json(aux);
                         return [2 /*return*/];
                 }

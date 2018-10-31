@@ -41,7 +41,8 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 // imports
 var express_1 = __importDefault(require("express"));
-var userSchema_1 = __importDefault(require("../db/userSchema"));
+//  import User from '../db/userSchema';
+var userCompSchema_1 = __importDefault(require("../db/userCompSchema"));
 var router = express_1.default.Router();
 var axios_1 = __importDefault(require("axios"));
 router.use('/getAvailablecontacts', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
@@ -50,26 +51,26 @@ router.use('/getAvailablecontacts', function (req, res) { return __awaiter(_this
         axios_1.default.post('http://localhost:5001/api/authenticate', {}, { headers: { cookie: req.headers.cookie } })
             .then(function async(response) {
             return __awaiter(this, void 0, void 0, function () {
-                var filter, listOfAvailableContacts;
+                var listOfAvailableContacts;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             console.log('response from authenticate omtp getContacts', response.data);
-                            filter = { _id: response.data._id };
-                            return [4 /*yield*/, userSchema_1.default.findOne({ _id: response.data._id }, { contacts: 1 })
+                            return [4 /*yield*/, userCompSchema_1.default.findOne({ _id: response.data._id }, { contacts: 1 })
                                     .populate({
                                     path: 'contacts.contact',
                                     select: 'username  email'
                                 })];
                         case 1:
                             listOfAvailableContacts = _a.sent();
+                            console.log('this is the available contacts', listOfAvailableContacts);
                             res.json(listOfAvailableContacts);
                             return [2 /*return*/];
                     }
                 });
             });
         }).catch(function (error) {
-            console.log('failture axios to authenticate');
+            console.log('failture axios to getAvailablecontacts');
         });
         return [2 /*return*/];
     });

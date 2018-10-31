@@ -2,7 +2,7 @@
  import express, { json } from 'express';
  import cookieParser from 'cookie-parser';
  import bodyParser from 'body-parser';
- import User from '../db/userSchema';
+ import userComb from '../db/userCompSchema';
  import passport from 'passport';
  const router = express.Router();
  import jwt, { verify } from 'jsonwebtoken';
@@ -23,7 +23,7 @@
              console.log('idioma_', req.headers.language)
    
              const update={language:req.headers.language}
-             const updateLanguage = await User.update(filter,update);
+             const updateLanguage = await userComb.update(filter,update);
             //  res.json(updateLanguage);
            
             // return response.json().th

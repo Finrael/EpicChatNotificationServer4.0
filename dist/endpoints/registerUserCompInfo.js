@@ -41,37 +41,45 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 // imports
 var express_1 = __importDefault(require("express"));
-var userSchema_1 = __importDefault(require("../db/userSchema"));
+var userCompSchema_1 = __importDefault(require("../db/userCompSchema"));
 var router = express_1.default.Router();
 router.post('/addUserExtraInfo', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var comDataUser, contactToLookFor, filter, creationDate, complementaryData, e_1;
+    var compUser, generateCombUser, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 3, , 4]);
-                console.log('into extras');
-                return [4 /*yield*/, userSchema_1.default.findOne({ email: req.body.email })];
-            case 1:
-                comDataUser = _a.sent();
-                contactToLookFor = comDataUser.email;
-                filter = { email: contactToLookFor };
-                creationDate = new Date();
-                complementaryData = {
-                    contacts: [],
+                _a.trys.push([0, 2, , 3]);
+                console.log('into extras', req.body);
+                compUser = {
+                    _id: req.body.id,
+                    email: req.body.email,
                     username: req.body.username,
+                    contacts: [],
                     language: req.body.language,
                 };
-                return [4 /*yield*/, userSchema_1.default.updateOne(filter, complementaryData)];
-            case 2:
-                _a.sent();
+                return [4 /*yield*/, userCompSchema_1.default.create(compUser)];
+            case 1:
+                generateCombUser = _a.sent();
+                /////////////////////////////////////////////////////////////
+                // const comDataUser = await User.findOne({ email: req.body.email }, )
+                // const contactToLookFor = comDataUser!.email;
+                //     let filter = { email: contactToLookFor };
+                //     const creationDate = new Date()
+                //     const complementaryData = {
+                //         contacts:[],
+                //         username:req.body.username,
+                //         language:req.body.language,
+                //     }
+                //    await User.updateOne(filter, complementaryData)
+                /////////////////////////////////////////////////
                 res.end('Contact saved');
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 3];
+            case 2:
                 e_1 = _a.sent();
                 console.log('error: ', e_1);
                 res.status(500);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });

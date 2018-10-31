@@ -41,7 +41,8 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 // imports
 var express_1 = __importDefault(require("express"));
-var userSchema_1 = __importDefault(require("../db/userSchema"));
+// import User from '../db/userSchema';
+var userCompSchema_1 = __importDefault(require("../db/userCompSchema"));
 var router = express_1.default.Router();
 var conversationSchema_1 = __importDefault(require("../db/conversationSchema"));
 var axios_1 = __importDefault(require("axios"));
@@ -51,51 +52,49 @@ router.post('/addContacts', function (req, res) { return __awaiter(_this, void 0
         axios_1.default.post('http://localhost:5001/api/authenticate', {}, { headers: { cookie: req.headers.cookie } })
             .then(function async(response) {
             return __awaiter(this, void 0, void 0, function () {
-                var newContact, contactToLookFor, checkForContactPresence, filter, filter2, creationDate, newConversation, generateConversation, update, update2, updateUser, updateUser2;
+                var newContact, filter, filter2, creationDate, newConversation, generateConversation, update, update2, updateUser, updateUser2;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             console.log('response from authenticate omtp addContacts', response.data);
-                            return [4 /*yield*/, userSchema_1.default.find({ email: req.headers.usertoadd })];
+                            return [4 /*yield*/, userCompSchema_1.default.findOne({ email: req.headers.usertoadd })];
                         case 1:
                             newContact = _a.sent();
-                            contactToLookFor = newContact[0]._id;
-                            return [4 /*yield*/, userSchema_1.default.find({ email: req.headers.email, contacts: { "$in": [contactToLookFor] } })];
-                        case 2:
-                            checkForContactPresence = _a.sent();
-                            if (!(checkForContactPresence.length === 0)) return [3 /*break*/, 6];
+                            console.log('dssfasdfa', newContact);
+                            // const contactToLookFor = newContact!.userId;
+                            // const checkForContactPresence = await userComp.find({ email: req.headers.email, contacts: { "$in": [contactToLookFor] } });
+                            console.log('hello', newContact);
                             filter = { email: req.headers.email };
-                            filter2 = { email: newContact[0].email };
+                            filter2 = { email: newContact.email };
                             creationDate = new Date();
                             newConversation = {
                                 participants: [{ participant: response.data._id, joinedDate: creationDate, status: 1 },
-                                    { participant: newContact[0]._id, joinedDate: creationDate, status: 1 }],
+                                    { participant: newContact._id, joinedDate: creationDate, status: 1 }],
                                 creationTime: creationDate,
                             };
                             console.log('blavbla');
                             return [4 /*yield*/, conversationSchema_1.default.create(newConversation)];
-                        case 3:
+                        case 2:
                             generateConversation = _a.sent();
-                            update = { $push: { contacts: { contact: newContact[0]._id, conversationId: generateConversation._id } } };
+                            update = { $push: { contacts: { contact: newContact, conversationId: generateConversation._id } } };
                             update2 = { $push: { contacts: { contact: response.data._id, conversationId: generateConversation._id } } };
-                            return [4 /*yield*/, userSchema_1.default.update(filter, update)];
-                        case 4:
+                            return [4 /*yield*/, userCompSchema_1.default.update(filter, update)];
+                        case 3:
                             updateUser = _a.sent();
-                            return [4 /*yield*/, userSchema_1.default.update(filter2, update2)];
-                        case 5:
+                            return [4 /*yield*/, userCompSchema_1.default.update(filter2, update2)];
+                        case 4:
                             updateUser2 = _a.sent();
                             res.end('Contact saved');
-                            return [3 /*break*/, 7];
-                        case 6:
-                            console.log('problem to save contacts');
+                            // }else{console.log('problem to save contacts');
                             res.end();
-                            _a.label = 7;
-                        case 7: return [2 /*return*/];
+                            return [2 /*return*/];
                     }
                 });
             });
-        }).catch(function (error) {
-            console.log('failture axios to authenticate');
+        }
+        // }
+        ).catch(function (error) {
+            console.log('failture axios to save');
         });
         return [2 /*return*/];
     });

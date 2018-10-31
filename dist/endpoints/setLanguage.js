@@ -41,7 +41,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 // imports
 var express_1 = __importDefault(require("express"));
-var userSchema_1 = __importDefault(require("../db/userSchema"));
+var userCompSchema_1 = __importDefault(require("../db/userCompSchema"));
 var router = express_1.default.Router();
 var axios_1 = __importDefault(require("axios"));
 router.use('/setLanguage', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
@@ -61,7 +61,7 @@ router.use('/setLanguage', function (req, res) { return __awaiter(_this, void 0,
                             filter = { _id: response.data._id };
                             console.log('idioma_', req.headers.language);
                             update = { language: req.headers.language };
-                            return [4 /*yield*/, userSchema_1.default.update(filter, update)];
+                            return [4 /*yield*/, userCompSchema_1.default.update(filter, update)];
                         case 1:
                             updateLanguage = _a.sent();
                             return [2 /*return*/];

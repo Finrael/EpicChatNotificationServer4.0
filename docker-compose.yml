@@ -1,0 +1,15 @@
+version: "3"
+services:
+  auth:
+    build: ./
+    ports:
+    - "5001:5001"
+    links: 
+    - mongo
+  mongo:
+    image: mongo
+    ports:
+    - "27017:27017"
+    volumes: 
+    - data-volumen/data/Nothidb
+

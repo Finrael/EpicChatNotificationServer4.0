@@ -2,7 +2,8 @@
  import express, { json } from 'express';
  import cookieParser from 'cookie-parser';
  import bodyParser from 'body-parser';
- import User from '../db/userSchema';
+//  import User from '../db/userSchema';
+ import userComp from '../db/userCompSchema';
  import passport from 'passport';
  const router = express.Router();
  import jwt, { verify } from 'jsonwebtoken';
@@ -18,19 +19,19 @@
       async   function async (response){
  
           console.log('response from authenticate omtp getContacts',response.data);
-          const filter  = {_id:response.data._id}
-          const listOfAvailableContacts = await User.findOne({_id:response.data._id}, {contacts:1})
+        //   const filter  = {email:response.data.email}
+          const listOfAvailableContacts = await userComp.findOne({_id:response.data._id}, {contacts:1})
           .populate({
               path: 'contacts.contact',
               select: 'username  email'
           })
-     
+     console.log('this is the available contacts', listOfAvailableContacts)
          res.json(listOfAvailableContacts);
 
         }
     ).catch(
         function (error){
-            console.log('failture axios to authenticate')
+            console.log('failture axios to getAvailablecontacts')
         }
     )
 

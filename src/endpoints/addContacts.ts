@@ -2,7 +2,8 @@
 import express, { json } from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import User from '../db/userSchema';
+// import User from '../db/userSchema';
+import userComp from '../db/userCompSchema';
 import passport from 'passport';
 const router = express.Router();
 import jwt, { verify } from 'jsonwebtoken';
@@ -20,32 +21,34 @@ router.post('/addContacts', async (req, res) => {
       async   function async (response){
 
           console.log('response from authenticate omtp addContacts',response.data);
-  const newContact = await User.find({ email: req.headers.usertoadd }, )
-        const contactToLookFor = newContact[0]._id;
-        const checkForContactPresence = await User.find({ email: req.headers.email, contacts: { "$in": [contactToLookFor] } });
-        if (checkForContactPresence.length === 0) {
+  const newContact = await userComp.findOne({ email: req.headers.usertoadd }, )
+  console.log('dssfasdfa', newContact)
+        // const contactToLookFor = newContact!.userId;
+        // const checkForContactPresence = await userComp.find({ email: req.headers.email, contacts: { "$in": [contactToLookFor] } });
+        console.log('hello', newContact)
+        // if (checkForContactPresence.length === 0) {
             let filter = { email: req.headers.email };
-            let filter2 = {email: newContact[0].email}
+            let filter2 = {email: newContact!.email}
             const creationDate = new Date()
             const newConversation = {
                 participants: [{ participant: response.data._id, joinedDate: creationDate, status: 1 },
-                { participant: newContact[0]._id, joinedDate: creationDate, status: 1 }],
+                { participant: newContact!._id, joinedDate: creationDate, status: 1 }],
                 creationTime: creationDate,
             }
             console.log('blavbla')
             const generateConversation = await conversation.create(newConversation);
-            let update = { $push: { contacts: { contact: newContact[0]._id, conversationId: generateConversation._id } } };
+            let update = { $push: { contacts: { contact: newContact, conversationId: generateConversation._id } } };
             let update2= { $push: { contacts: { contact: response.data._id, conversationId: generateConversation._id } } };
-            const updateUser = await User.update(filter, update)
-            const updateUser2 = await User.update(filter2,update2);
+            const updateUser = await userComp.update(filter, update)
+            const updateUser2 = await userComp.update(filter2,update2);
             res.end('Contact saved');
 
-        }else{console.log('problem to save contacts');
+        // }else{console.log('problem to save contacts');
         res.end()}
-    }
+    // }
     ).catch(
         function (error){
-            console.log('failture axios to authenticate')
+            console.log('failture axios to save')
         }
     )
 

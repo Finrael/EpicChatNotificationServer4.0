@@ -11,7 +11,7 @@ export function Config(server: Http.Server) {
     io = SocketIO(server);
 
     io.use(async(socket, next) => {
-        console.log('this', socket.request.headers.cookie)
+        console.log('this socket ', socket.request.headers.cookie)
         const cookie = socket.request.headers.cookie
         let spreadCookie1 = cookie.split(';')
         let spreadCookie2 = spreadCookie1[0].split('=')

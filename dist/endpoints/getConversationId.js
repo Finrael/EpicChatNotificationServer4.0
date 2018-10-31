@@ -44,7 +44,7 @@ var express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
 var mongoose_1 = require("mongoose");
 var axios_1 = __importDefault(require("axios"));
-var userSchema_1 = __importDefault(require("../db/userSchema"));
+var userCompSchema_1 = __importDefault(require("../db/userCompSchema"));
 router.post('/getConversationId', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         console.log('hello');
@@ -58,7 +58,7 @@ router.post('/getConversationId', function (req, res) { return __awaiter(_this, 
                             console.log('enter here', response.data);
                             UserIdObject = new mongoose_1.Types.ObjectId(response.data._id);
                             console.log(UserIdObject);
-                            return [4 /*yield*/, userSchema_1.default.findOne({ _id: UserIdObject })];
+                            return [4 /*yield*/, userCompSchema_1.default.findOne({ _id: UserIdObject })];
                         case 1:
                             UserData = _a.sent();
                             console.log('THISD IS THE CONVERSATION DATA', UserData);
