@@ -44,10 +44,11 @@ var express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
 var conversationSchema_1 = __importDefault(require("../db/conversationSchema"));
 var axios_1 = __importDefault(require("axios"));
+var configFile_1 = require("../configFile");
 // on this one we need to get all the conv ids and then use the socket io to conect to the room with the name of the ids 
 router.post('/connectSockets', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        axios_1.default.post('http://localhost:5001/api/authenticate', {}, { headers: { cookie: req.headers.cookie } })
+        axios_1.default.post(configFile_1.authenticationServer_Api_Adress + '/authenticate', {}, { headers: { cookie: req.headers.cookie } })
             .then(function async(response) {
             return __awaiter(this, void 0, void 0, function () {
                 var conversationData, aux;

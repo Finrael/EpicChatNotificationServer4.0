@@ -44,12 +44,13 @@ var express_1 = __importDefault(require("express"));
 var userCompSchema_1 = __importDefault(require("../db/userCompSchema"));
 var router = express_1.default.Router();
 var axios_1 = __importDefault(require("axios"));
+var configFile_1 = require("../configFile");
 router.use('/setLanguage', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var auxdata, filter;
     return __generator(this, function (_a) {
         auxdata = {};
         console.log('this user =', req.headers.cookie);
-        axios_1.default.post('http://localhost:5001/api/authenticate', {}, { headers: { cookie: req.headers.cookie } })
+        axios_1.default.post(configFile_1.authenticationServer_Api_Adress + '/authenticate', {}, { headers: { cookie: req.headers.cookie } })
             .then(function async(response) {
             return __awaiter(this, void 0, void 0, function () {
                 var update, updateLanguage;
@@ -64,6 +65,8 @@ router.use('/setLanguage', function (req, res) { return __awaiter(_this, void 0,
                             return [4 /*yield*/, userCompSchema_1.default.update(filter, update)];
                         case 1:
                             updateLanguage = _a.sent();
+                            //  res.json(updateLanguage);
+                            res.end();
                             return [2 /*return*/];
                     }
                 });
@@ -71,11 +74,6 @@ router.use('/setLanguage', function (req, res) { return __awaiter(_this, void 0,
         }).catch(function (error) {
             console.log('failture axios to authenticate');
         });
-        // console.log('from authenticate getProfile ',req.user);
-        //     let filter={_id:req.user!._id};
-        //     const update={language:req.body.language}
-        //     const updateLanguage = await User.update(filter,update);
-        //  res.json(updateLanguage);
         res.end();
         return [2 /*return*/];
     });

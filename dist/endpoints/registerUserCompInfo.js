@@ -60,18 +60,6 @@ router.post('/addUserExtraInfo', function (req, res) { return __awaiter(_this, v
                 return [4 /*yield*/, userCompSchema_1.default.create(compUser)];
             case 1:
                 generateCombUser = _a.sent();
-                /////////////////////////////////////////////////////////////
-                // const comDataUser = await User.findOne({ email: req.body.email }, )
-                // const contactToLookFor = comDataUser!.email;
-                //     let filter = { email: contactToLookFor };
-                //     const creationDate = new Date()
-                //     const complementaryData = {
-                //         contacts:[],
-                //         username:req.body.username,
-                //         language:req.body.language,
-                //     }
-                //    await User.updateOne(filter, complementaryData)
-                /////////////////////////////////////////////////
                 res.end('Contact saved');
                 return [3 /*break*/, 3];
             case 2:

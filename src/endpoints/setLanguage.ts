@@ -8,12 +8,13 @@
  import jwt, { verify } from 'jsonwebtoken';
  import passportJWT from 'passport-jwt';
  import axios from 'axios'
- 
+ import {authenticationServer_Api_Adress} from '../configFile'
+
  router.use('/setLanguage',   async(req,res)=>{
     let auxdata = {};
     let filter;
      console.log('this user =', req.headers.cookie)
-    axios.post ('http://localhost:5001/api/authenticate',{},{headers:{cookie: req.headers.cookie}})
+    axios.post (authenticationServer_Api_Adress+'/authenticate',{},{headers:{cookie: req.headers.cookie}})
     .then (
         
       async   function async (response){
@@ -25,7 +26,7 @@
              const update={language:req.headers.language}
              const updateLanguage = await userComb.update(filter,update);
             //  res.json(updateLanguage);
-           
+           res.end();
             // return response.json().th
         }
     ).catch(
@@ -35,11 +36,7 @@
     )
    
 
- // console.log('from authenticate getProfile ',req.user);
-//     let filter={_id:req.user!._id};
-//     const update={language:req.body.language}
-//     const updateLanguage = await User.update(filter,update);
-//  res.json(updateLanguage);
+
 res.end()
  });
  export default router;

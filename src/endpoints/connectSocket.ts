@@ -11,9 +11,10 @@ import conversation from '../db/conversationSchema';
 import { Types, Schema } from "mongoose";
 import SocketIO from 'socket.io';
 import axios from 'axios'
+import {authenticationServer_Api_Adress} from '../configFile'
 // on this one we need to get all the conv ids and then use the socket io to conect to the room with the name of the ids 
 router.post('/connectSockets', async (req, res) => {
-    axios.post ('http://localhost:5001/api/authenticate',{},{headers:{cookie: req.headers.cookie}})
+    axios.post (authenticationServer_Api_Adress+'/authenticate',{},{headers:{cookie: req.headers.cookie}})
     .then (
   
       async   function async (response){

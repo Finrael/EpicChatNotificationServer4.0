@@ -11,12 +11,13 @@
  import message from '../db/messageSchema';
 import {Types, Schema} from "mongoose";
 import axios from 'axios';
+import { authenticationServer_Api_Adress } from '../configFile';
 // import  {io} from '../SocketConfig'
  router.use('/message', async(req,res)=>{
 //  console.log('from authenticate getProfile ',req.user);
-console.log('sDSA***************************************************',req.headers.convid,'************', req.headers.textmessage)
+console.log('Enter into message:',req.headers.convid,' The text is ', req.headers.textmessage)
 let convIDtypeguard='';
-axios.post ('http://localhost:5001/api/authenticate',{},{headers:{cookie: req.headers.cookie}})
+axios.post (authenticationServer_Api_Adress+'/authenticate',{},{headers:{cookie: req.headers.cookie}})
 
 .then (
 

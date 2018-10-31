@@ -18,20 +18,9 @@ router.post('/addUserExtraInfo',  async (req, res) => {
             contacts: [],
             language:req.body.language,
          }
-        //  console.log(compUser)
+
          const generateCombUser = await UserComb.create(compUser);
-    /////////////////////////////////////////////////////////////
-        // const comDataUser = await User.findOne({ email: req.body.email }, )
-        // const contactToLookFor = comDataUser!.email;
-        //     let filter = { email: contactToLookFor };
-        //     const creationDate = new Date()
-        //     const complementaryData = {
-        //         contacts:[],
-        //         username:req.body.username,
-        //         language:req.body.language,
-        //     }
-        //    await User.updateOne(filter, complementaryData)
-           /////////////////////////////////////////////////
+
             res.end('Contact saved');
     } catch (e) {
         console.log('error: ', e);

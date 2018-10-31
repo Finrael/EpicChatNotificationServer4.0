@@ -43,10 +43,11 @@ var express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
 var axios_1 = __importDefault(require("axios"));
 var userCompSchema_1 = __importDefault(require("../db/userCompSchema"));
+var configFile_1 = require("../configFile");
 router.use('/getContacts', function (req, res) {
     console.log('---------------------------->', req.headers.emailtolookfor);
     var stringGuard = '';
-    axios_1.default.post('http://localhost:5001/api/authenticate', {}, { headers: { cookie: req.headers.cookie } })
+    axios_1.default.post(configFile_1.authenticationServer_Api_Adress + '/authenticate', {}, { headers: { cookie: req.headers.cookie } })
         .then(function async(response) {
         return __awaiter(this, void 0, void 0, function () {
             var aux;

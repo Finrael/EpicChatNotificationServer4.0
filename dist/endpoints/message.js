@@ -45,14 +45,15 @@ var router = express_1.default.Router();
 var messageSchema_1 = __importDefault(require("../db/messageSchema"));
 var mongoose_1 = require("mongoose");
 var axios_1 = __importDefault(require("axios"));
+var configFile_1 = require("../configFile");
 // import  {io} from '../SocketConfig'
 router.use('/message', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var convIDtypeguard;
     return __generator(this, function (_a) {
         //  console.log('from authenticate getProfile ',req.user);
-        console.log('sDSA***************************************************', req.headers.convid, '************', req.headers.textmessage);
+        console.log('Enter into message:', req.headers.convid, ' The text is ', req.headers.textmessage);
         convIDtypeguard = '';
-        axios_1.default.post('http://localhost:5001/api/authenticate', {}, { headers: { cookie: req.headers.cookie } })
+        axios_1.default.post(configFile_1.authenticationServer_Api_Adress + '/authenticate', {}, { headers: { cookie: req.headers.cookie } })
             .then(function async(response) {
             return __awaiter(this, void 0, void 0, function () {
                 var creationDate, newMessage, generateMessage, responseToMessage;

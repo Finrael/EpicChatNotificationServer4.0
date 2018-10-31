@@ -44,10 +44,11 @@ var express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
 var conversationSchema_1 = __importDefault(require("../db/conversationSchema"));
 var axios_1 = __importDefault(require("axios"));
+var configFile_1 = require("../configFile");
 router.post('/getConversation', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         console.log(req.headers.convid);
-        axios_1.default.post('http://localhost:5001/api/authenticate', {}, { headers: { cookie: req.headers.cookie } })
+        axios_1.default.post(configFile_1.authenticationServer_Api_Adress + '/authenticate', {}, { headers: { cookie: req.headers.cookie } })
             .then(function async(response) {
             return __awaiter(this, void 0, void 0, function () {
                 var conversationData;

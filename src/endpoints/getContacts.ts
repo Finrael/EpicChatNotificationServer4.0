@@ -10,11 +10,11 @@
  import passportJWT from 'passport-jwt';
  import axios from 'axios'
  import userComp from '../db/userCompSchema';
-
+ import {authenticationServer_Api_Adress} from '../configFile'
 router.use ('/getContacts', (req,res)=>{
 console.log('---------------------------->',req.headers.emailtolookfor)
 let stringGuard:string ='';
-    axios.post ('http://localhost:5001/api/authenticate',{},{headers:{cookie: req.headers.cookie}})
+    axios.post (authenticationServer_Api_Adress+'/authenticate',{},{headers:{cookie: req.headers.cookie}})
     .then (
   
       async   function async (response){

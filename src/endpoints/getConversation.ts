@@ -10,10 +10,11 @@ import passportJWT from 'passport-jwt';
 import conversation from '../db/conversationSchema';
 import { Types, Schema } from "mongoose";
 import axios from 'axios'
+import {authenticationServer_Api_Adress} from '../configFile'
 
 router.post('/getConversation',  async (req, res) => {
     console.log(req.headers.convid)
-    axios.post ('http://localhost:5001/api/authenticate',{},{headers:{cookie: req.headers.cookie}})
+    axios.post (authenticationServer_Api_Adress+'/authenticate',{},{headers:{cookie: req.headers.cookie}})
     
     .then (
   
