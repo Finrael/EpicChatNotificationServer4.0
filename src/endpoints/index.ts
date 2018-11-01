@@ -3,7 +3,7 @@ import addExtraInfo from './registerUserCompInfo'
 import setLanguage from './setLanguage'
 import getContacts from './getContacts'
 import addContacts from './addContacts'
-import getAvailableContacts from './getAvailablecontacts'
+import getAvailableContacts from './getAvailableContacts'
 import getConversation from './getConversation';
 import getMessages from './getMessages';
 import messages from './message'

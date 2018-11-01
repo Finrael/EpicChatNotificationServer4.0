@@ -1,15 +1,17 @@
 version: "3"
 services:
-  auth:
+  nothification:
     build: ./
     ports:
-    - "5001:5001"
+    - "5002:5002"
     links: 
-    - mongo
-  mongo:
+    - notificationmongo
+  notificationmongo:
     image: mongo
     ports:
-    - "27017:27017"
+    - "8000:27017"
     volumes: 
-    - data-volumen/data/Nothidb
+    - nothData:/data/Nothidb
 
+volumes:
+  nothData:

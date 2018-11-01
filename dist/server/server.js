@@ -11,9 +11,10 @@ var port = process.env.PORT || 5002;
 var mongoose_1 = __importDefault(require("mongoose"));
 var endpoints_1 = __importDefault(require("../endpoints"));
 var http_1 = __importDefault(require("http"));
-mongoose_1.default.connect('mongodb://localhost:27017/CommsDB', function (error) {
+var configFile_1 = require("../configFile");
+mongoose_1.default.connect('mongodb://' + configFile_1.mongo_serverAddress + ':' + configFile_1.mongo_serverPort + '/CommsDB', { useNewUrlParser: true }, function (error) {
     if (error) {
-        console.log('error');
+        console.log('error', error);
         process.exit();
         return;
     }

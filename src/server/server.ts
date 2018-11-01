@@ -11,13 +11,13 @@ import {Session} from 'inspector';
 import PasswordJWT from 'passport-jwt';
 import endPoints from '../endpoints';
 import http from 'http';
-
+import {mongo_serverAddress, mongo_serverPort} from '../configFile'
 mongoose.connect(
-    'mongodb://localhost:27017/CommsDB', (error: any) => {
+    'mongodb://'+mongo_serverAddress+':'+mongo_serverPort+'/CommsDB',{useNewUrlParser:true}, (error: any) => {
 
         if (error) {
-            console.log('error');
-            process.exit();
+            console.log('error', error);
+            process.exit(); 
             return
         }
         else {
