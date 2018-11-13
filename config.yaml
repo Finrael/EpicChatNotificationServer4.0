@@ -1,0 +1,16 @@
+ apiVersion: v1
+ kind: Pod
+ metadata:
+   name: epic-noth-pod
+   labels:
+     app: epic-noth-pod
+ spec:
+   containers:
+     - name: epic-noth-server
+       image: noth-service:v1
+       ports:
+         - containerPort: 5002
+     - name: epic-auth-mongo
+       image: mongo
+       ports:
+         - containerPort: 27017
